@@ -1,0 +1,26 @@
+#include<stdio.h>
+
+int fib(int n) {
+	if (n < 3) {
+		return n;
+	} else {
+		int x = 1;
+		int y = 1;
+		int i = 3;
+		while (i < n) {
+			int temp = x;
+			x = y + temp;
+			y = temp;
+			i ++;
+		}
+		return x;
+	}
+}
+
+int main() {
+	int n = 0;
+	while (1) {
+		printf("The %dth term of the fibonacci set is %d\n", n, fib(n));
+		n++;
+	}
+}
