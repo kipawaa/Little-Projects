@@ -1,5 +1,6 @@
 #include<stdio.h>
 
+// tail recursively determines the nth fibonacci number
 int fib(int n) {
 	return (n < 2) ? n : fib(n - 1) + fib(n - 2);
 }

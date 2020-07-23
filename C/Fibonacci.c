@@ -1,4 +1,7 @@
-// just a regular fibonacci number calculator, input the desired term number 'n' into the fib function to have it return the nth fibonacci number
+/***
+Just a regular fibonacci number calculator. Input the desired term number
+'n' into the fib function to have it return the nth fibonacci number
+***/
 #include<stdio.h>
 
 int fib(int n) {
