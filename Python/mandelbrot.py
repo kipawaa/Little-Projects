@@ -1,3 +1,5 @@
+# creates a map of the mandelbrot set and saves it as an image
+
 from PIL import Image
 import numpy as np
 
@@ -52,10 +54,6 @@ def generate_mandelbrot(rrange=(-2, 1), irange=(-1, 1)):
     Image.fromarray(plot).show()
 
 if __name__ == '__main__':
-    # typical zoom
-    #generate_mandelbrot()
-
-    # zoom
     generate_mandelbrot()
 
     

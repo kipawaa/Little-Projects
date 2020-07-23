@@ -1,3 +1,5 @@
+#contains recursive and looping factorial finders
+
 def recursive_factorial_finder(n):
     if n == 1:
         return 1

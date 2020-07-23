@@ -1,3 +1,5 @@
+# generates a semi-realistic map by generating random numbers and then randomly moving up or down from them within an allowed variance
+
 from graphics import *
 from random import randint
 

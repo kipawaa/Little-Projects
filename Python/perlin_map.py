@@ -1,3 +1,7 @@
+# generates a map using perlin noise
+
+# colours are poorly done, could use better shading and more intelligent landscape design :(
+
 import numpy as np
 from PIL import Image
 

@@ -1,25 +1,29 @@
 # Return the nth term of the fibonacci sequence, with the sequence starting: 0, 1, 1, 2...
-import time
 
-start = time.time()
+# dictionary for memoization
+dictionary = {1: 0, 2: 1}
 
-dictionary = {1:0, 2: 1}
-
+# memoized fibonacci calculator
 def memoizedFib(n:int) -> int:
+	# returns the term of interest is in the dictionary, otherwise recursively calculates it
 	if n in dictionary:
 		return dictionary[n]
 	else:
 		a = memoizedFib(n-1) + memoizedFib(n-2)
+		# updates the dictionary
 		dictionary[n] = a
-		del dictionary[n-2]
+
+		# returns the value
 		return a
 
 if __name__ == '__main__':
-	end = int(input('state the term number of interest: '))
-	for i in range(end):
-		if i % 900 == 0:
-			memoizedFib(i+1)
-			print(i+1)
-	print(memoizedFib(end))
-	endtime = time.time()
-	print(end, "th term took", endtime-start, "s")
+	# asks the user for a term of interest
+	n = int(input('state the term number of interest (0 to quit): '))
+
+	# continues asking the user for more terms until they ask for the 0th term
+	while n != 0:
+		# prints the value
+		print(memoizedFib(n))
+
+		# asks again
+		n = int(input('state the term number of interest (0 to quit): '))
