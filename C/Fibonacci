@@ -1,3 +1,4 @@
+// just a regular fibonacci number calculator, input the desired term number 'n' into the fib function to have it return the nth fibonacci number
 #include<stdio.h>
 
 int fib(int n) {
@@ -20,7 +21,7 @@ int fib(int n) {
 int main() {
 	int n = 0;
 	while (1) {
-		printf("The %dth term of the fibonacci set is %d\n", n, fib(n));
+		printf("The %dth term of the fibonacci sequence is %d\n", n, fib(n));
 		n++;
 	}
 }
