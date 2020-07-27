@@ -2,9 +2,6 @@
 import random
 import multiprocessing as mp
 
-# CHANGE THIS to test your own computer!
-numThreads = 6;
-
 # function that takes a queue and adds the task of summing many many random numbers to that queue
 def randomNumber(q):
     total = 0
@@ -19,7 +16,9 @@ if __name__ == '__main__':
 	# creates the queue that will hold tasks for the threads
 	q = mp.Queue()
 	processes = []
-	for i in range(numThreads):
+
+	# automatically determines number of threads and assigns processes to each
+	for i in range(mp.cpu_count()):
 		processes.append(mp.Process(target=randomNumber, args=(q,)))
 
 	# begins all the tasks
