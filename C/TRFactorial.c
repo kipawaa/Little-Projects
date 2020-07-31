@@ -16,7 +16,6 @@ int TRFactorial(int num, int sum) {
 	} else {
 		return TRFactorial(num - 1, num * sum);
 	}
-	return 1;
 }
 
 int main() {
