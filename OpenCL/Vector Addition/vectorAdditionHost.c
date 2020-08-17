@@ -6,7 +6,7 @@
 	#include<CL/cl.h>
 #endif
 
-#define arrSize 1024
+#define arrSize 100000
 
 int main() {
 	// create the vectors to be added
