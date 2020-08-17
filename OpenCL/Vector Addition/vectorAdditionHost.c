@@ -16,30 +16,26 @@ int main() {
 
 	// put values into vectors a and b
 	for (int i = 0; i < arrSize; i++) {
-		a[i] = i + 1;
-		b[i] = i + 1;
+		a[i] = 1;
+		b[i] = 1;
 	}
-
-	printf("arrays created.\n");
 	
 	// max size of the cl file
 	const size_t clFileSize = 0x100000;
 	char* source = (char*) malloc(clFileSize);
 
-	// open the cl file for reading (cl reads from files as text)
+	// open the .cl file for reading (cl reads from files as text)
 	FILE* clFile = fopen("vectorAdditionKernel.cl", "r");
 
-	// copy the code from the cl file to the string "source"
+	// copy the text from the cl file to the string "source"
 	fread(source, 1, clFileSize, clFile);
 
-	// close the file again
+	// close the .cl file
 	fclose(clFile);
 	
-	printf("file read.\n");
-
-	// platform and device information
+	// variables to store platform and device information
 	cl_platform_id platform = NULL;
-	cl_device_id device = NULL;
+	cl_device_id device = NULL; // can be an array if multiple devices will be used 
 
 	cl_uint numDevices;
 	cl_uint numPlatforms;
@@ -47,67 +43,53 @@ int main() {
 	// function return holder and error code retainer
 	cl_int ret;
 
-	// determine platforms
+	// automatically determines the platform (AMD, nVidia etc.) and number of platforms being used (1 is requested by the first parameter)
 	ret = clGetPlatformIDs(1, &platform, &numPlatforms);
 	
-	// determine devices
+	// determine devices and number of devices used (one GPU device is requested, as per 2nd and 3rd parameters) 
+					// (devices can only be accessed if they are on the same platform as is passed in here (if platform is AMD but an intel CPU is desired, both platforms must be loaded))
 	ret = clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, &device, &numDevices);
 	
-	printf("platform and device information collected.\n");
-
 	// create compute context
 	cl_context context = clCreateContext(NULL, 1, &device, NULL, NULL, &ret);
 	
 	// create command queue
 	cl_command_queue queue = clCreateCommandQueue(context, device, 0, &ret);
 
-	printf("context and queue created.\n");
-
 	// allocate buffer memory objects (this seems to be where you allocate GPU memory for the things you want to compute)
 	cl_mem a_obj = clCreateBuffer(context, CL_MEM_READ_ONLY, arrSize * sizeof(int), NULL, &ret); // read from a
 	cl_mem b_obj = clCreateBuffer(context, CL_MEM_READ_ONLY, arrSize * sizeof(int), NULL, &ret); // read from b
 	cl_mem c_obj = clCreateBuffer(context, CL_MEM_WRITE_ONLY, arrSize * sizeof(int), NULL, &ret); // write to c
 
-	printf("memory objects created.\n");
-
-	// write the data for computation to memory available to the compute device
+	// write the data for computation to memory available to the compute device (vector c does not get a write buffer since it only needs to be read from, not written to)
 	ret = clEnqueueWriteBuffer(queue, a_obj, CL_TRUE, 0, sizeof(int) * arrSize, a, 0, NULL, NULL);
 	ret = clEnqueueWriteBuffer(queue, b_obj, CL_TRUE, 0, sizeof(int) * arrSize, b, 0, NULL, NULL);
 
-	printf("write buffers created\n");
-
-	// create compute program
+	// read program from .cl document as strings
 	cl_program program = clCreateProgramWithSource(context, 1, (const char**)&source, &clFileSize, &ret);
 
-	// build compute program executable
+	// compile OCL program
 	ret = clBuildProgram(program, 1, &device, NULL, NULL, NULL);
 
-	// create the compute kernel
+	// create compute kernel
 	cl_kernel kernel = clCreateKernel(program, "vectorAddition", &ret);
 
-	// set the args values
+	// set kernel arguments
 	ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void*)&a_obj);
 	ret = clSetKernelArg(kernel, 1, sizeof(cl_mem), (void*)&b_obj);
 	ret = clSetKernelArg(kernel, 2, sizeof(cl_mem), (void*)&c_obj);
 
-	// globalSize is the size of the whole work object, localSize is how large a chunk of data is processed at once? not entirely sure, TODO
-	const size_t globalSize = arrSize;
-	const size_t localSize = 64;
+	// globalSize is the size of the whole work object, localSize is how large a chunk of data is processed by each work-group? not entirely sure, TODO
+	const size_t globalSize = arrSize; // number of components in each vector
+	const size_t localSize = 1; // number of components each thread needs to access at a time (for vector addition, only one component of each vector needs to be accessed)
 
 	// execute the kernel
 	ret = clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &globalSize, &localSize, 0, NULL, NULL);
 
-	// read from the buffer to get the data post-computation
+	// read from the kernel buffer to get the data post-computation
 	ret = clEnqueueReadBuffer(queue, c_obj, CL_TRUE, 0, arrSize * sizeof(int), c, 0, NULL, NULL);
 	
-	// display the results
-	for (int i = 0; i < arrSize; i+= 100) {
-		printf("%d: %d\n", i, c[i]);
-	}
-
-	printf("cleaning OpenCL stuff...\n");
-	
-	// clean up the buffers and everything associated with the CL program
+	// clean up the buffers and everything associated with the OCL program
 	clFlush(queue);
 	clFinish(queue);
 	clReleaseKernel(kernel);
@@ -118,7 +100,6 @@ int main() {
 	clReleaseCommandQueue(queue);
 	clReleaseContext(context);
 
-	printf("freeing memory...\n");
 	free(a);
 	free(b);
 	free(c);
