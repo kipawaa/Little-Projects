@@ -43,7 +43,7 @@ int main() {
 	// function return holder and error code retainer
 	cl_int ret;
 
-	// automatically determines the platform (AMD, nVidia etc.) and number of platforms being used (1 is requested by the first parameter)
+	// automatically determines the platform (AMD, nVidia etc.) and number of platforms being used (1 platform is requested by the first parameter)
 	ret = clGetPlatformIDs(1, &platform, &numPlatforms);
 	
 	// determine devices and number of devices used (one GPU device is requested, as per 2nd and 3rd parameters) 
