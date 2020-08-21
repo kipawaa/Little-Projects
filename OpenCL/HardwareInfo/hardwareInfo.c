@@ -12,6 +12,8 @@ int main() {
 	cl_uint numPlatforms;
 	clGetPlatformIDs(0, NULL, &numPlatforms); // requests 0 platforms but gathers the number available
 	
+	printf("platforms: %d\n", numPlatforms);
+
 	cl_platform_id* platforms = (cl_platform_id*)malloc(numPlatforms * sizeof(cl_platform_id));
 	
 	clGetPlatformIDs(numPlatforms, platforms, NULL); // store all of the available platforms
@@ -34,10 +36,16 @@ int main() {
 
 		// print device info
 		for (int j = 0; j < numDevices; j++) {
-			char* deviceName = (char*) malloc(1024 * sizeof(char));
+			// get device name
+			size_t size;
+			clGetDeviceInfo(devices[j], CL_DEVICE_NAME, 0, NULL, &size);
+			char* deviceName = (char*)malloc(size);
+			clGetDeviceInfo(devices[j], CL_DEVICE_NAME, size, deviceName, NULL); // get device name
+			
+			// get max compute units
 			cl_uint maxComputeUnits;
-			clGetDeviceInfo(devices[j], CL_DEVICE_NAME, sizeof(deviceName), deviceName, NULL); // get device name
 			clGetDeviceInfo(devices[j], CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(maxComputeUnits), &maxComputeUnits, NULL);
+			
 			printf("device %d: %s, compute units: %d\n", j, deviceName, maxComputeUnits);
 		}
 	}
