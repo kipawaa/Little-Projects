@@ -6,7 +6,7 @@
 	#include<CL/cl.h>
 #endif
 
-#define arrSize 100000
+#define arrSize 1024
 
 int main() {
 	// create the vectors to be added
@@ -34,7 +34,7 @@ int main() {
 	fclose(clFile);
 	
 	// variables to store platform and device information
-	cl_platform_id platform = NULL;
+	cl_platform_id platform = NULL; // can be an array if multiple platforms will be used
 	cl_device_id device = NULL; // can be an array if multiple devices will be used 
 
 	cl_uint numDevices;
@@ -88,7 +88,13 @@ int main() {
 
 	// read from the kernel buffer to get the data post-computation
 	ret = clEnqueueReadBuffer(queue, c_obj, CL_TRUE, 0, arrSize * sizeof(int), c, 0, NULL, NULL);
-	
+
+	// output the vector
+	for (int i = 0; i < arrSize; i++) {
+		printf("%d, ", c[i]);
+	}
+	printf("\n");
+
 	// clean up the buffers and everything associated with the OCL program
 	clFlush(queue);
 	clFinish(queue);
