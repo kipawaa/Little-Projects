@@ -18,6 +18,6 @@ def prime_decomposition(n):
 	return factors
 
 if __name__ == '__main__':
-	for i in range(2, 100):
+	for i in range(1, 1000):
 		decomp = prime_decomposition(i)
 		print(product(decomp), decomp)
