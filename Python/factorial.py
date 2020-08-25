@@ -1,10 +1,7 @@
 #contains recursive and looping factorial finders
 
 def recursive_factorial_finder(n):
-    if n == 1:
-        return 1
-    else:
-        return n * recursive_factorial_finder(n-1)
+    return 1 if n == 1 else n * recursive_factorial_finder(n - 1)
     
 def looping_factorial_finder(n):
     total = 1
