@@ -1,4 +1,3 @@
-from math import ceil
 from factors import get_factors
 from primes import check_prime
 
