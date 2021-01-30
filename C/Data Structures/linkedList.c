@@ -84,9 +84,8 @@ void insertSorted(int value, linkedList *list) {
 	newNode -> next = NULL;
 	
 	// determines where to place the new node to maintain the sortedness of the list
-	if (list -> head == NULL) {
-		list -> head = newNode;
-	} else if (list -> head -> value > newNode -> value) {
+	if (list -> head == NULL) list -> head = newNode;
+	else if (list -> head -> value > newNode -> value) {
 		newNode -> next = list -> head;
 		list -> head = newNode;
 	} else {
@@ -111,9 +110,8 @@ bool search(int value, linkedList *list) {
 
 // deletes the first item from a list
 void removeFirst(linkedList *list) {
-	if (list -> head == NULL) {
-		printf("the list is already empty.\n");
-	} else {
+	if (list -> head == NULL) printf("the list is already empty.\n");
+	else {
 		node *newHead = list -> head -> next;
 		free(list -> head);
 		list -> head = newHead;
@@ -121,9 +119,8 @@ void removeFirst(linkedList *list) {
 }
 // deletes the last item from a list
 void removeLast(linkedList *list) {
-	if (list -> head == NULL) {
-		printf("the list is already empty.\n");
-	} else if (list -> head -> next == NULL) {
+	if (list -> head == NULL) printf("the list is already empty.\n");
+	else if (list -> head -> next == NULL) {
 		free(list -> head -> next);
 		list -> head = NULL;
 	} else {
@@ -140,7 +137,7 @@ void removeLast(linkedList *list) {
 void deleteValue(int value, linkedList *list) {
 	if (list -> head -> value == value) {
 		removeFirst(list);
-	} else{
+	} else {
 		node *current = list -> head;
 		while (current -> next -> value != value && current -> next != NULL) {
 			current = current -> next;
@@ -152,7 +149,21 @@ void deleteValue(int value, linkedList *list) {
 	}
 }
 
-// making a new list doesn't use more memory because you're just sorting pointers
+// find lowest value
+int getLeastValue(linkedList* list) {
+	// empty list
+	if (list -> head == NULL) return 0;
+
+	int leastValue = list -> head -> value;
+	node* current = list -> head;
+	while (current -> next != NULL) {
+		current = current -> next;
+		if (current -> value < leastValue) leastValue = current -> value;
+	}
+
+	return leastValue;
+}
+
 
 int main() {
 	linkedList *newlist = makeList();

@@ -20,26 +20,3 @@ int isPrime(int num) {
 	// if none of those numbers divide num, then num IS prime!
 	return 1;
 }
-
-// asks user for a limit and then finds primes up to and including that limit
-void getPrimes() {
-	// asks the user for the limit
-	printf("find all primes up to and including:\n");
-	int input;
-	scanf("%d", &input);
-	
-	// notify user that we're finding the primes
-	printf("finding primes...\n");
-
-	// finds all the primes
-	for (int i = 0; i <= input; i++) {
-		if (isPrime(i)) printf("%d\n", i);
-	}
-
-	// let user know we're finished finding the primes
-	printf("that's all of 'em!\n");
-}
-
-int main() {
-	getPrimes();
-}
