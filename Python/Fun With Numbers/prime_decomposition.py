@@ -6,7 +6,7 @@ def product(lst):
 		total *= i
 	return total
 
-def prime_decomposition(n):
+def get_prime_decomposition(n):
 	factors = get_prime_factors(n)
 	
 	while product(factors) < n:
@@ -19,5 +19,5 @@ def prime_decomposition(n):
 
 if __name__ == '__main__':
 	for i in range(1, 1000):
-		decomp = prime_decomposition(i)
+		decomp = get_prime_decomposition(i)
 		print(product(decomp), decomp)
