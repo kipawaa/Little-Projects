@@ -11,13 +11,13 @@ def get_prime_decomposition(n):
 	
 	while product(factors) < n:
 		newFactors = get_prime_factors(n // product(factors))
-		factors.extend(newFactors[1:])
+		factors.extend(newFactors)
 	
 	factors.sort()
 	
 	return factors
 
 if __name__ == '__main__':
-	for i in range(1, 1000):
+	for i in range(1, 100):
 		decomp = get_prime_decomposition(i)
 		print(product(decomp), decomp)

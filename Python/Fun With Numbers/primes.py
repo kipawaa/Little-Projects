@@ -2,11 +2,11 @@ from math import sqrt, floor
 from time import time
 
 # list for memoization
-saved = [1, 2, 3]
+saved = [2, 3]
 
 def check_prime(num:int) -> bool:
 	# primes must be positive
-	if num <= 0: return False
+	if num <= 1: return False
 
 	# all numbers less than 3 and greater than 0 are prime are prime
 	if num < 3: return True
