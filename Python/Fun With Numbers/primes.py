@@ -4,7 +4,7 @@ from time import time
 # list for memoization
 saved = [2, 3]
 
-def check_prime(num:int) -> bool:
+def check_prime(num):
 	# primes must be positive
 	if num <= 1: return False
 
