@@ -37,4 +37,7 @@ void countingSort(int *arr, int len) {
 	for (int i = 0; i < len; i++) {
 		arr[i] = sorted[i];
 	}
+
+        free(counts);
+        free(sorted);
 }
