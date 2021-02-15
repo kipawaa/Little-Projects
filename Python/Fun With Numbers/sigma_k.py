@@ -12,16 +12,18 @@ if __name__ == '__main__':
         k = int(input("input k: "))
         start = int(input("input the start number: "))
         end = int(input("input the end number: "))
-        for i in range(start, end):
+        for i in range(start, end + 1):
             print(f"sigma_{k}({i}) = {sigma_k(i, k)}")
     
 
     """ single mode """
     if mode == 1:
-        print("enter a number to perform sigma_k on:")
-        num = int(input("number: "))
-        k = int(input("k: "))
-        print(sigma_k(num, k))
+        num = 1
+        while num >= 0:
+            num = int(input("number (or -1 to quit): "))
+            if num >= 0:
+                k = int(input("k: "))
+                print(f"sigma_{k}({num}) = {sigma_k(num, k)}")
 
     """ find max
     most = 0

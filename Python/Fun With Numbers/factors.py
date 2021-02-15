@@ -9,7 +9,7 @@ if __name__ == '__main__':
         start = int(input("input the start number: "))
         end = int(input("input the end number: "))
         
-        for i in range(start, end):
+        for i in range(start, end + 1):
             print(f"{i} has factors: {get_factors(i)}")
 
     if mode == 1:
