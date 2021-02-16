@@ -4,12 +4,12 @@
 dictionary = {1: 0, 2: 1}
 
 # memoized fibonacci calculator
-def memoizedFib(n:int) -> int:
-	# returns the term of interest is in the dictionary, otherwise recursively calculates it
+def memoized_fibonacci(n:int) -> int:
+	# returns if the term of interest is in the dictionary, otherwise recursively calculates it
 	if n in dictionary:
 		return dictionary[n]
 	else:
-		a = memoizedFib(n-1) + memoizedFib(n-2)
+		a = memoized_fibonacci(n-1) + memoized_fibonacci(n-2)
 		# updates the dictionary
 		dictionary[n] = a
 
@@ -17,13 +17,19 @@ def memoizedFib(n:int) -> int:
 		return a
 
 if __name__ == '__main__':
-	# asks the user for a term of interest
-	n = int(input('state the term number of interest (0 to quit): '))
+    mode = int(input("choose a mode:\nbatch mode: 0\nsingle mode: 1\n"))
+    
+    """ batch mode """
+    if mode == 0:
+        start = max(int(input("input the start number (n > 0): ")), 1)
+        end = int(input("input the end number: "))
+        
+        for i in range(start, end + 1):
+            print(f"the {i}th fibonacci number is: {memoized_fibonacci(i)}")
 
-	# continues asking the user for more terms until they ask for the 0th term
-	while n != 0:
-		# prints the value
-		print(memoizedFib(n))
+    if mode == 1:
+        num = 1
+        while num > 0:
+            num = int(input("input a number (n > 0) (or -1 to quit): "))
+            if num > 0: print(f"the {num} fibonacci number is: {memoized_fibonacci(num)}")
 
-		# asks again
-		n = int(input('state the term number of interest (0 to quit): '))

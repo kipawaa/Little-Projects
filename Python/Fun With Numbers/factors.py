@@ -14,7 +14,6 @@ if __name__ == '__main__':
 
     if mode == 1:
         num = 1
-        while num > 0:
+        while num >= 0:
             num = int(input("input a number (or -1 to quit): "))
             print(f"{num} has factors: {get_factors(num)}")
-

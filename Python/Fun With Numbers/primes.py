@@ -4,7 +4,7 @@ from time import time
 # list for memoization
 saved = [2, 3]
 
-def check_prime(num):
+def is_prime(num):
 	# primes must be positive
 	if num <= 1: return False
 
@@ -26,6 +26,20 @@ def check_prime(num):
 	return True
 
 if __name__ == '__main__':
-	lim = int(input("find all primes up to: "))
-	for i in range(1, lim):
-		if check_prime(i): print(i)
+    mode = int(input("choose a mode:\nbatch mode: 0\nsingle mode: 1\n"))
+    
+    """ batch mode """
+    if mode == 0:
+        start = int(input("input the start number: "))
+        end = int(input("input the end number: "))
+        
+        for i in range(start, end + 1):
+            if is_prime(i): print(f"{i} is prime!")
+            else: print(f"{i} is not prime")
+
+    if mode == 1:
+        num = 1
+        while num >= 0:
+            num = int(input("input a number (or -1 to quit): "))
+            if is_prime(num): print(f"{num} is prime!")
+            else: print(f"{num} is not prime")

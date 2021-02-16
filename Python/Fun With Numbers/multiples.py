@@ -33,8 +33,11 @@ def get_LCM(a, b):
     
 
 if __name__ == '__main__':
-    a = int(input("input the first number: "))
-    b = int(input("input the second number: "))
+    a = 0
+    b = 1
+    while a != b:
+        a = int(input("input the first number: "))
+        b = int(input("input the second number (or the same as the first number to quit): "))
 
-    print(f'the GCD of {a} and {b} is {get_GCD(a, b)}')
-    print(f'the LCM of {a} and {b} is {get_LCM(a, b)}')
+        print(f'the GCD of {a} and {b} is {get_GCD(a, b)}')
+        print(f'the LCM of {a} and {b} is {get_LCM(a, b)}')
