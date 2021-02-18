@@ -22,6 +22,39 @@ def check_brackets(string: str) -> bool:
     return num_single_brackets == 0
 
 
+def perform_operation(string):
+    """ takes a string of the form '<val> <operator> <val>' and returns the result of evaluation
+    
+    >>> perform_operation('1 + 2')
+    3
+    >>> perform_operation('4 * 6')
+    24
+    >>> perform_operation('9 / 3')
+    3.0
+    """
+    
+    val1 = int(string[0:string.index(' ')])
+    
+    # remove val1 and the space from the string
+    string = string[string.index(' ') + 1:]
+    
+    operator = string[0:string.index(' ')]
+    
+    # remove the operator from the string
+    string = string[string.index(' '):]
+    
+    val2 = int(string)
+
+    if (operator == '+'):
+        return val1 + val2
+    if (operator == '-'):
+        return val1 - val2
+    if (operator == '*'):
+        return val1 * val2
+    if (operator == '/'):
+        return val1 / val2
+
+
 def evaluate_brackets(string):
     # TODO replace eval with my own function. 
     # Function only needs to be able to evaluate operations of the form '<val> <operation> <val>'
@@ -41,7 +74,7 @@ def evaluate_brackets(string):
         elif string[i] == ')':
             # evaluate everything from brackets.pop to i
             start = brackets.pop()
-            string = string[:start] + str(eval(string[start : i + 1])) + string[i + 1:]
+            string = string[:start] + str(perform_operation(string[start+1 : i])) + string[i + 1:]
             i = start + 1
         i += 1
     return int(string)
