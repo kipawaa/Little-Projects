@@ -1,3 +1,10 @@
+"""
+calculator program for simple number computations.
+
+TODO:
+    a function to add brackets to bracketless expressions (i.e. convert '1 + 2' to '(1 + 2)')
+"""
+
 def check_brackets(string: str) -> bool:
     ''' Return True if string has proper bracketing
 
@@ -32,8 +39,10 @@ def perform_operation(string):
     >>> perform_operation('9 / 3')
     3.0
     """
+
+    string.strip()
     
-    val1 = int(string[0:string.index(' ')])
+    val1 = float(string[0:string.index(' ')].strip())
     
     # remove val1 and the space from the string
     string = string[string.index(' ') + 1:]
@@ -43,7 +52,7 @@ def perform_operation(string):
     # remove the operator from the string
     string = string[string.index(' '):]
     
-    val2 = int(string)
+    val2 = float(string.strip())
 
     if (operator == '+'):
         return val1 + val2
@@ -56,8 +65,6 @@ def perform_operation(string):
 
 
 def evaluate_brackets(string):
-    # TODO replace eval with my own function. 
-    # Function only needs to be able to evaluate operations of the form '<val> <operation> <val>'
     """ evaluate a mathematical expression with full bracketing
 
     >>> evaluate_brackets('(1 + 2)')
@@ -77,7 +84,15 @@ def evaluate_brackets(string):
             string = string[:start] + str(perform_operation(string[start+1 : i])) + string[i + 1:]
             i = start + 1
         i += 1
-    return int(string)
+    return float(string)
+
+
+def calculate(string):
+    if not check_brackets(string):
+        print("brackets are wrong!!!")
+        return -1
+    else:
+        return evaluate_brackets(string)
 
 
 if __name__ == '__main__':
