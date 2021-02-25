@@ -1,3 +1,5 @@
+from colours import *
+
 def euclidian(num, divisor):
     remainder = num % divisor
     multiplier = num // divisor
@@ -20,6 +22,8 @@ if __name__ == '__main__':
             num2 = int(num2)
             euclidian(num1, num2)
         except:
-            if num1 == 'q' or num2 == 'q': break
-            if not isinstance(num1, int): print(f"error: {num1} is not an integer")
-            if not isinstance(num2, int): print(f"error: {num2} is not an integer")
+            if num1 == 'q' or num2 == 'q': 
+                print("program closed.")
+                break
+            if not isinstance(num1, int): print(f"{RED}error{END}: {num1} is not an integer")
+            if not isinstance(num2, int): print(f"{RED}error{END}: {num2} is not an integer")
