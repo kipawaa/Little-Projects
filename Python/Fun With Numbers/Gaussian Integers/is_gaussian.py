@@ -1,4 +1,4 @@
-from cmath import *
+from colours import *
 
 def is_gaussian(num):
     return num.real % 1 == 0 and num.imag % 1 == 0
@@ -16,6 +16,4 @@ if __name__ == '__main__':
             if num == 'q':
                 break;
             else:
-                RED = '\033[91m'
-                ENDCOLOUR = '\033[0m'
-                print(f"{RED}error{ENDCOLOUR}: input was not a complex number")
+                print(f"{BRED}error{END}: input was not a complex number")
