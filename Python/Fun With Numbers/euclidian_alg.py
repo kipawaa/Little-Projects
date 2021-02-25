@@ -1,4 +1,3 @@
-
 def euclidian(num, divisor):
     remainder = num % divisor
     multiplier = num // divisor
@@ -12,10 +11,15 @@ def euclidian(num, divisor):
 
 
 if __name__ == '__main__':
-    num1 = 0
-    num2 = 1
-    while num1 != num2:
-        print("enter two different numbers to perform the euclidian algorithm, or two of the same number to quit:")
-        num1 = int(input("number one: "))
-        num2 = int(input("number two: "))
-        euclidian(num1, num2)
+    while True:
+        print("enter two different numbers to perform the euclidian algorithm, or q as either number to quit:")
+        num1 = input("number one: ")
+        num2 = input("number two: ")
+        try:
+            num1 = int(num1)
+            num2 = int(num2)
+            euclidian(num1, num2)
+        except:
+            if num1 == 'q' or num2 == 'q': break
+            if not isinstance(num1, int): print(f"error: {num1} is not an integer")
+            if not isinstance(num2, int): print(f"error: {num2} is not an integer")
