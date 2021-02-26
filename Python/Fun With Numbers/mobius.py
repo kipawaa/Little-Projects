@@ -1,4 +1,5 @@
-rom prime_decomposition import get_prime_decomposition
+from prime_decomposition import get_prime_decomposition
+from colours import *
 
 def mobius(n):
     # 1 returns 1
@@ -24,7 +25,15 @@ if __name__ == '__main__':
         end = int(input("input the end number: "))
         
         for i in range(start, end + 1):
-            print(f"\u03BC({i}) = {mobius(i)}")
+            val = mobius(i)
+            if val == 1:
+                print(f"\u03BC({i}) = {BGREEN}{val}{END}")
+            if val == 0:
+                print(f"\u03BC({i}) = {BRED}{val}{END}")
+            if val == -1:
+                Bprint(f"\u03BC({i}) = {BBLUE}{val}{END}")
+
+
 
     if mode == 1:
         num = 1
