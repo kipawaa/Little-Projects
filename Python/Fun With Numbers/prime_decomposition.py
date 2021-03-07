@@ -1,3 +1,4 @@
+""" this version works using the other programs in this directory """
 from prime_factors import get_prime_factors
 
 def product(lst):
@@ -19,6 +20,35 @@ def get_prime_decomposition(n):
     return factors
 
 
+""" This version uses a simple while loop """
+def simple_prime_decomp(num):
+    factors = []
+
+    div = 2
+    while num > 1:
+        if num % div == 0:
+            factors.append(div)
+            num /= div;
+        else:
+            div += 1
+
+    return factors
+
+""" this version uses the some logic as the above, but is recursive """
+def recursive_prime_decomp(num, factors=[]):
+    if num <= 1:
+        return factors
+
+    div = 2
+    while num % div != 0:
+        div += 1
+
+    factors.append(div)
+    
+    return recursive_prime_decomp(num/div, factors)
+
+
+
 if __name__ == '__main__':
     mode = int(input("choose a mode:\nbatch mode: 0\nsingle mode: 1\n"))
     
@@ -29,6 +59,8 @@ if __name__ == '__main__':
         
         for i in range(start, end + 1):
             print(f"{i} has prime decomposition: {get_prime_decomposition(i)}")
+            print(f"recursive: {recursive_prime_decomp(i, [])}")
+            print(f"loop: {simple_prime_decomp(i)}")
 
     if mode == 1:
         num = 1
