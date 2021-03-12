@@ -16,6 +16,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include<limits.h>
 
 
 
@@ -36,11 +37,18 @@ typedef struct ArrayQueue {
  * initializes a new q and returns a pointer to it
  */
 Queue* getQueue(int maxSize) {
+        maxSize += 1; // need one extra space to prevent index and length from overlapping when full
+
+        // get queue
         Queue* q = (Queue*)calloc(1, sizeof(Queue));
+        
+        // initialize values
         q -> maxSize = maxSize;
         q -> length = 0;
         q -> index = 0;
         q -> data = (int*)calloc(maxSize, sizeof(int));
+        
+        // return
         return q;
 }
 
@@ -50,8 +58,13 @@ Queue* getQueue(int maxSize) {
  * takes a pointer to a queue and an integer value, then enqueues the value
  */
 void enqueue(Queue* q, int val) {
-        if (q -> index == q -> length) {
-                printf("too big!\n");
+        // makes sure that the array has space
+        // the expression on the right will return index - 1 if the index is above zero
+        // otherwise it will return the length of the array -1 (effectively the space before 0, since it wraps around)
+        // notice that we use maxSize - 1 because we require a one space gap between index and length to distinguish
+        //      between empty and full
+        if (q -> length == ((q -> index) > 0 ? (q -> index - 1) : (q -> maxSize - 1))) {
+                printf("I'm full!\n");
                 return;
         }
 
@@ -65,6 +78,10 @@ void enqueue(Queue* q, int val) {
  * takes a pointer to a queue and dequeues a value
  */
 int dequeue(Queue* q) {
+        if (q -> length == q -> index) {
+                printf("I'm empty!!!\n");
+                return INT_MIN;
+        }
         int temp = q -> data[q -> index];
         q -> index = (q -> index) < (q -> maxSize - 1) ? (q -> index + 1) : 0;
         return temp;
@@ -85,17 +102,27 @@ void printQueue(Queue* q) {
 int main() {
         Queue* q = getQueue(10);
         printQueue(q);
-        enqueue(q, 10);
-        enqueue(q, 12);
+        for (int i = 0; i < 10; i++) {
+                enqueue(q, i);
+        }
 
-        printf("should print 10, 12\n");
+        printf("should print values 0-9:\n");
         printQueue(q);
+        printf("\n");
+        
+        printf("should give an error for overfilling\n");
+        enqueue(q, 9);
+        printf("\n");
 
-        enqueue(q, 3);
-        printf("should print 10, 12, 3\n");
+        printf("should print the values 0-9:\n");
         printQueue(q);
+        printf("\n");
 
-        dequeue(q);
-        printf("should print 12, 3\n");
-        printQueue(q);
+        
+        printf("should print values 0-9 and then errors for removing from empty:\n");
+        for (int i = 0; i < 15; i++) {
+                printf("%d ", dequeue(q));
+        }
+        printf("\n");
+
 }
