@@ -11,7 +11,7 @@ def gaussian_euclidian(a, b):
         q = complex(round((a.real * b.real + a.imag * b.imag) / (b.real**2 + b.imag**2)), round((a.imag * b.real - a.real * b.imag) / (b.real**2 + b.imag**2)))
         r = a - q * b
         print(f"{a} = {q}{b} + {r}")
-    return q
+    return b
 
 if __name__ == '__main__':
     while True:
