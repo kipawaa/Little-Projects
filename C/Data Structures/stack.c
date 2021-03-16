@@ -10,25 +10,48 @@ typedef struct IntStack {
 	Node *head;
 } Stack;
 
-// pushes data onto the stack given by head
-void push(Stack *stack, int data) {
-	Node *new = NULL;
-	new = (Node *)calloc(1, sizeof(Node));
+
+Stack* getStack() {
+        Stack* stack = (Stack*)calloc(1, sizeof(Stack));
+        stack -> head = NULL;
+        
+        return stack;
+}
+
+
+void push(Stack* stack, int data) {
+	Node *new = (Node *)calloc(1, sizeof(Node));
 	new -> data = data;
 	new -> next = stack -> head;
 	stack -> head = new;
 }
 
-// pops top item from stack
-void pop(Stack *stack) {
+
+void pop(Stack* stack) {
 	if (stack -> head == NULL) {
 		printf("Cannot pop, stack is already empty.\n");
-	} else {
-		Node *temp = stack -> head;
-		stack -> head = stack -> head -> next;
-		free(temp);
+                return;
 	}
+
+        Node *temp = stack -> head;
+	stack -> head = stack -> head -> next;
+	free(temp);
+	
 }
+
+
+void deleteStack(Stack* stack) {
+        Node* current = stack -> head;
+
+        while (current) {
+                Node* temp = current;
+                current = current -> next;
+                free(temp);
+        }
+
+        stack -> head = NULL;
+}
+
 
 void printStack(Stack *stack) {
 	printf("printing stack...\n");
@@ -44,12 +67,17 @@ void printStack(Stack *stack) {
 }
 
 int main() {
-	Stack stack = {NULL};
-	push(&stack, 1);
-	push(&stack, 2);
-	printStack(&stack);
-	pop(&stack);
-	pop(&stack);
-	pop(&stack);
-	printStack(&stack);
+	Stack* stack = getStack();
+	push(stack, 1);
+	push(stack, 2);
+	printStack(stack);
+	pop(stack);
+	pop(stack);
+	pop(stack);
+	printStack(stack);
+
+        deleteStack(stack);
+        
+        // check for memory leaks
+        system("leaks a.out\n");
 }

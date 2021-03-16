@@ -2,21 +2,21 @@
 #include<stdlib.h>
 #include<stdbool.h>
 
-// defines nodes for use in linked list structure
+// defines Nodes for use in linked list structure
 typedef struct Node {
 	int value;
 	struct Node *next;
-} node;
+} Node;
 
-// defines linked list which uses the node structure
+// defines linked list which uses the Node structure
 typedef struct LinkedList {
-	node *head;
-} linkedList;
+	Node *head;
+} LinkedList;
 
 // allows printing a linked list
-void printList(linkedList *list) {
+void printList(LinkedList *list) {
 	if (list -> head != NULL){
-		node *current = list -> head;
+		Node *current = list -> head;
 		printf("%d, ", current -> value);
 		while (current -> next != NULL) {
 			current = current -> next;
@@ -30,40 +30,40 @@ void printList(linkedList *list) {
 
 
 // allows initialization of a linked list
-linkedList* makeList() {
-	linkedList* newList = NULL; 
-	newList = (linkedList*)calloc(1, sizeof(linkedList));
+LinkedList* makeList() {
+	LinkedList* newList = NULL; 
+	newList = (LinkedList*)calloc(1, sizeof(LinkedList));
 	newList -> head = NULL;
 	return newList;
 }
 
 // allows adding elements to the start of a linked list
-void insertStart(int value, linkedList *list) {
-	// declares a new pointer for the new node
-	node *newNode = NULL;
-	newNode = (node *)calloc(1, sizeof(node));
+void insertStart(int value, LinkedList *list) {
+	// declares a new pointer for the new Node
+	Node *newNode = NULL;
+	newNode = (Node *)calloc(1, sizeof(Node));
 	
-	// updates the values of the node
+	// updates the values of the Node
 	newNode -> value = value;
 	if (list -> head != NULL) {
 		newNode -> next = list -> head;
 	}
 
-	// makes head point to the new node
+	// makes head point to the new Node
 	list -> head = newNode;
 }
 
 // allows adding elements to the end of a linked list
-void insertEnd(int value, linkedList *list) {
-	// declares a new node pointer
-	node *newNode = NULL;
-	newNode = (node *)calloc(1, sizeof(node));
+void insertEnd(int value, LinkedList *list) {
+	// declares a new Node pointer
+	Node *newNode = NULL;
+	newNode = (Node *)calloc(1, sizeof(Node));
 
-	// updates the value of the node
+	// updates the value of the Node
 	newNode -> value = value;
 	
 	
-	node *current = list -> head;
+	Node *current = list -> head;
 	if (current == NULL) {
 		list -> head = newNode;
 	} else {
@@ -76,32 +76,32 @@ void insertEnd(int value, linkedList *list) {
 }
 
 // allows inserting into sorted list TODO
-void insertSorted(int value, linkedList *list) {
-	// initializes a new node
-	node *newNode = NULL;
-	newNode = (node *)calloc(1, sizeof(node));
+void insertSorted(int value, LinkedList *list) {
+	// initializes a new Node
+	Node *newNode = NULL;
+	newNode = (Node *)calloc(1, sizeof(Node));
 	newNode -> value = value;
 	newNode -> next = NULL;
 	
-	// determines where to place the new node to maintain the sortedness of the list
+	// determines where to place the new Node to maintain the sortedness of the list
 	if (list -> head == NULL) list -> head = newNode;
 	else if (list -> head -> value > newNode -> value) {
 		newNode -> next = list -> head;
 		list -> head = newNode;
 	} else {
-		node *current = list -> head;
+		Node *current = list -> head;
 		while (current -> next != NULL && current -> next -> value < newNode -> value) {
 			current = current -> next;
 		}
-		node *temp = current -> next;
+		Node *temp = current -> next;
 		current -> next = newNode;
 		newNode -> next = temp;
 	}
 }
 
 // determines if a value is present in a list
-bool search(int value, linkedList *list) {
-	node *current = list -> head;
+bool search(int value, LinkedList *list) {
+	Node *current = list -> head;
 	while (current -> value != value && current -> next != NULL) {
 		current = current -> next;
 	}
@@ -109,22 +109,22 @@ bool search(int value, linkedList *list) {
 }
 
 // deletes the first item from a list
-void removeFirst(linkedList *list) {
+void removeFirst(LinkedList *list) {
 	if (list -> head == NULL) printf("the list is already empty.\n");
 	else {
-		node *newHead = list -> head -> next;
+		Node *newHead = list -> head -> next;
 		free(list -> head);
 		list -> head = newHead;
 	}
 }
 // deletes the last item from a list
-void removeLast(linkedList *list) {
+void removeLast(LinkedList *list) {
 	if (list -> head == NULL) printf("the list is already empty.\n");
 	else if (list -> head -> next == NULL) {
 		free(list -> head -> next);
 		list -> head = NULL;
 	} else {
-		node *current = list -> head;
+		Node *current = list -> head;
 		while (current -> next -> next != NULL) {
 			current = current -> next;
 		}
@@ -134,28 +134,28 @@ void removeLast(linkedList *list) {
 }
 
 // deletes the first occurence of a given value from a list
-void deleteValue(int value, linkedList *list) {
+void deleteValue(int value, LinkedList *list) {
 	if (list -> head -> value == value) {
 		removeFirst(list);
 	} else {
-		node *current = list -> head;
+		Node *current = list -> head;
 		while (current -> next -> value != value && current -> next != NULL) {
 			current = current -> next;
 		}
 		// tbr = to be removed
-		node *tbr = current -> next;
+		Node *tbr = current -> next;
 		current -> next = current -> next -> next;
 		free(tbr);
 	}
 }
 
 // find lowest value
-int getLeastValue(linkedList* list) {
+int getLeastValue(LinkedList* list) {
 	// empty list
 	if (list -> head == NULL) return 0;
 
 	int leastValue = list -> head -> value;
-	node* current = list -> head;
+	Node* current = list -> head;
 	while (current -> next != NULL) {
 		current = current -> next;
 		if (current -> value < leastValue) leastValue = current -> value;
@@ -165,8 +165,19 @@ int getLeastValue(linkedList* list) {
 }
 
 
+void deleteList(LinkedList* list) {
+        Node* current = list -> head;
+        while (current) {
+                Node* temp = current;
+                current = current -> next;
+                free(temp);
+        }
+        list -> head = NULL;
+}
+
+
 int main() {
-	linkedList *newlist = makeList();
+	LinkedList *newlist = makeList();
 	
 	// insert random numbers to ensure insertSorted works
 	insertSorted(9, newlist);
@@ -180,4 +191,9 @@ int main() {
 	insertSorted(8, newlist);
 
 	printList(newlist);
+
+        deleteList(newlist);
+
+        // check for memory leaks
+        system("leaks a.out\n");
 }
