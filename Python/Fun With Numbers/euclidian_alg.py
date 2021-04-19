@@ -1,6 +1,6 @@
 from colours import *
 
-def euclidian(num, divisor):
+def print_euclidian(num, divisor):
     remainder = num % divisor
     multiplier = num // divisor
     print(f"{num} = {divisor}({multiplier}) + {remainder}")
@@ -12,6 +12,17 @@ def euclidian(num, divisor):
         print(f"{num} = {divisor}({multiplier}) + {remainder}")
 
 
+def euclidian(num, divisor):
+    remainder = num % divisor
+    multiplier = num // divisor
+    while remainder != 0:
+        num = divisor
+        divisor = remainder
+        remainder = num % divisor
+        multiplier = num // divisor
+    return divisor
+
+
 if __name__ == '__main__':
     while True:
         print("enter two different numbers to perform the euclidian algorithm, or q as either number to quit:")
@@ -20,10 +31,11 @@ if __name__ == '__main__':
         try:
             num1 = int(num1)
             num2 = int(num2)
-            euclidian(num1, num2)
+            print(euclidian(num1, num2))
         except:
             if num1 == 'q' or num2 == 'q': 
                 print("program closed.")
                 break
-            if not isinstance(num1, int): print(f"{RED}error{END}: {num1} is not an integer")
-            if not isinstance(num2, int): print(f"{RED}error{END}: {num2} is not an integer")
+            elif not isinstance(num1, int): print(f"{RED}error{END}: {num1} is not an integer")
+            elif not isinstance(num2, int): print(f"{RED}error{END}: {num2} is not an integer")
+            else: print("generic error")

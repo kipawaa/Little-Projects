@@ -20,6 +20,21 @@ def get_prime_decomposition(n):
     return factors
 
 
+def get_prime_decomp_fast(num):
+    decomp = []
+
+    div = 2
+    
+    while num > 1:
+        if num % div == 0:
+            num /= div
+            decomp.append(div)
+        else:
+            div += 1
+
+    return decomp
+
+
 """ This version uses a simple while loop """
 def simple_prime_decomp(num):
     factors = []
