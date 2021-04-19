@@ -26,7 +26,7 @@ void display() {
 		glColor3f(0, 1, 0);
 		glVertex3f(0.6, -0.75, 0);
 
-		// colour and second vertex
+		// colour and third vertex
 		glColor3f(0, 0, 1);
 		glVertex3f(0, 0.75, 0);
 	// end of polygon definition

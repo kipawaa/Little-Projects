@@ -10,4 +10,9 @@
 #include<GLUT/glut.h>
 
 void display() {
+        
+}
 
+int main() {
+        
+}
