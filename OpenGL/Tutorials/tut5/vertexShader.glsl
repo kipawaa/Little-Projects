@@ -7,7 +7,7 @@ layout(location = 1) in vec2 vertexUV;
 // output data (goes to fragment shader)
 out vec2 UV;
 
-// uniforms
+// get matrix
 uniform mat4 PVM;
 
 void main() {

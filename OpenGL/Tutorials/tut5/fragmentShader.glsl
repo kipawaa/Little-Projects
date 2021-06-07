@@ -6,7 +6,7 @@ in vec2 UV;
 // output data
 out vec3 colour;
 
-// uniforms
+// get texture sampler
 uniform sampler2D textureSampler;
 
 void main() {

@@ -179,13 +179,6 @@ int main() {
         mat4* matrixArray[3] = {&projection, &camera, &translation};
         glm_mat4_mulN(matrixArray, 3, pvm);
 
-        for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                        printf("%f, ", pvm[i][j]);
-                }
-                printf("\n");
-        }
-
         // get GL ID for adjustment matrix
         GLuint pvmID = glGetUniformLocation(programID, "PVM");
 
@@ -293,7 +286,7 @@ int main() {
 
                 // draw the cube
                 glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-                glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (void*)0);
+                glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
                 glEnableVertexAttribArray(0);
                 glDrawArrays(GL_TRIANGLES, 0, 36);  // 36 vertices in a cube made of triangles
                 glDisableVertexAttribArray(0);
