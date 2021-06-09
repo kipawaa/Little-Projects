@@ -19,7 +19,6 @@
 #include<limits.h>
 
 
-
 /* Struct: Queue
  ***************
  * Queue structure with length, index and data members
@@ -53,7 +52,7 @@ Queue* getQueue(int maxSize) {
 }
 
 
-/* Function: enq
+/* Function: enqueue
  *******************
  * takes a pointer to a queue and an integer value, then enqueues the value
  */
@@ -73,7 +72,7 @@ void enqueue(Queue* q, int val) {
 }
 
 
-/* Function: deq
+/* Function: dequeue
  *******************
  * takes a pointer to a queue and dequeues a value
  */
