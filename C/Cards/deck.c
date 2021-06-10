@@ -2,11 +2,11 @@
 
 
 Deck* newDeck(void) {
+        // get space for deck
         Deck* deck = (Deck*)malloc(sizeof(Deck));
         
-        // initialize values
+        // set length
         deck -> length = 52;
-        deck -> index = 0;
 
         // fill the deck
         for (char suit = 0; suit < 4; suit++) {
@@ -19,30 +19,75 @@ Deck* newDeck(void) {
 }
 
 
-int getNext(Deck* deck) {
-        // the ternary expression on the right determines the index of the first element in the queue.
-        // if that is beyond index 0, then it returns the value before it, otherwise it returns the end of the array
-        if (deck -> length == ((deck -> index > 0) ? deck -> index - 1 : 53)) {
-                printf("I'm empty!!!\n");
-                return -1;
+void addToEnd(Deck* deck, int card) {
+        // check for space
+        if (deck -> length == 52) {
+                perror("Deck is full!");
+                exit(0);
         }
-        int temp = deck -> cards[deck -> index];
-        deck -> index = (deck -> index) < (53 - 1) ? (deck -> index + 1) : 0; 
-        return temp;
-}
 
-
-/*
-void overhandShuffle(Deck* deck) {
-        srand(time());
+        // assign card
+        deck -> cards[deck -> length] = card;
         
-        int total = 0;
-
-        while (total < deck -> length) {
-                int numCards = rand() % (deck -> length / 3);
-                
+        // update length
+        deck -> length += 1;
 }
-*/
+
+
+int getNext(Deck* deck) {
+        // make sure there are cards
+        if (deck -> length == 0) {
+                perror("Deck is empty!");
+                exit(0);
+        }
+        
+        // update length
+        deck -> length -= 1;
+
+        // return the desired card
+        return deck -> cards[deck -> length];
+}
+
+
+void overhandShuffle(Deck* deck) {
+        if (deck -> length == 0) {
+                perror("Deck is empty!");
+                exit(0);
+        }
+
+        srand(time(0));
+
+        int third = (deck -> length) / 3;
+
+        int temp[52] = {-1};
+        int numTransferred = 0;
+        int inProgress;
+        int transferSize;
+
+        while (numTransferred < deck -> length) {
+                // transfer somewhere around a third of the deck, as would be normal for an overhand shuffle
+                transferSize = third + (rand() % 8 - 4);
+
+                // make sure we don't try to transfer more cards than are in the deck.
+                // this sets transferSize to be the minimum of the random number we generated and the deck size - the number of cards already transferred
+                transferSize = (transferSize < (deck -> length) - numTransferred) ? transferSize : ((deck -> length) - numTransferred);
+                inProgress = transferSize;
+
+                while (inProgress > 0 && numTransferred + (transferSize - inProgress) < deck -> length) {
+                        printf("copying deck[%d] = %d to temp[%d]\n", (deck -> length) - numTransferred - inProgress, deck -> cards[(deck -> length) - numTransferred - inProgress], numTransferred + (transferSize - inProgress));
+                        temp[numTransferred + (transferSize - inProgress)] = deck -> cards[(deck -> length) - numTransferred - inProgress];
+
+                        inProgress -= 1;
+                }
+
+                numTransferred += transferSize;
+        }
+
+        for (int i = 0; i < numTransferred; i++) {
+                deck -> cards[i] = temp[i];
+        }
+
+}
 
 
 void cardToString(char* string, int numBytes, int card) {
@@ -68,12 +113,10 @@ void cardToString(char* string, int numBytes, int card) {
 
 
 void printDeck(Deck* deck) {
-        int i = 0;
-        while ((deck -> index + i) % 53 != deck -> length) {
+        for (int i = 0; i < (deck -> length); i++) {
                 char card[10];
-                cardToString(card, 10, deck -> cards[(deck -> index + i) % 53]);
+                cardToString(card, 10, deck -> cards[i]);
                 printf("%s, ", card);
-                i++;
         }
         printf("\n");
 }
