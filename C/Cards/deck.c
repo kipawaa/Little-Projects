@@ -90,6 +90,44 @@ void overhandShuffle(Deck* deck) {
 }
 
 
+void riffleShuffle(Deck* deck) {
+        if (deck -> length == 0) {
+                perror("Deck is empty!");
+                exit(0);
+        }
+
+        srand(time(0));
+
+        // get left and right half of the deck
+        int cards[2][26];
+
+        int leftLength = (deck -> length / 2) + (rand() % 8 - 4); // split the deck ± 4 cards
+        int rightLength = deck -> length - rightLength;
+
+        for (int i = 0; i < leftLength; i++) {
+                cards[0][i] = deck -> cards[i];
+        }
+        for (int i = 0; i < rightLength; i++) {
+                cards[1][i] = deck -> cards[leftLength + i];
+        }
+
+        // flag for which side to transfer from
+        int side = 0;
+
+        int numTransferred = 0;
+
+        // transfer the cards back to the deck
+        while (numTransferred < deck -> length) {
+                int transferSize = rand() % 3; // transfer up to 2 cards
+                
+                while (transferSize > 0 && numTransferred < deck -> length) {
+                        
+                }
+        }
+
+}
+
+
 void cardToString(char* string, int numBytes, int card) {
         int suitVal = card / 13;
         int numVal = card % 13 + 1;
