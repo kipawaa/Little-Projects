@@ -3,6 +3,7 @@
 if __name__ == "__main__":
     # add 15 to a given number
     lambda x : x + 15
+
     # multiply two numbers
     lambda x, y : x * y
     
