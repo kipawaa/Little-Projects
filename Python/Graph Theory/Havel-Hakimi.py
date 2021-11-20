@@ -29,7 +29,7 @@ if __name__ == "__main__":
     while (user != "q"):
         user = input("input a degree sequence to test its validity, or q to exit: ")
         try:
-            degseq = [int(num.strip()) for num in user.split(',')]
+            degseq = [int(num.strip()) for num in user.split(' ')]
             if havel_hakimi(list(degseq)): # use list() to pass a copy so that original is unmodified
                 print(f"{degseq} is a valid degree sequence!")
             else:
