@@ -31,7 +31,7 @@ if __name__ == '__main__':
         try:
             num1 = int(num1)
             num2 = int(num2)
-            print(euclidian(num1, num2))
+            print(print_euclidian(num1, num2))
         except:
             if num1 == 'q' or num2 == 'q': 
                 print("program closed.")
