@@ -1,5 +1,7 @@
 body {
-        background-color: #282D30;
+        color-scheme: light dark;
+        background-color: Canvas;
+        color: CanvasText;
 }
 
 td, th {
