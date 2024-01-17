@@ -1,7 +1,9 @@
+body {
+        background-color: #282D30;
+}
+
 td, th {
         border: 1px solid;
         padding: 10px 20px;
+        text-align: center;
 }
-
-input {
-        

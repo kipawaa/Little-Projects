@@ -5,6 +5,7 @@
         <meta charset=utf-8>
         <html lang="en">
         <link rel="stylesheet" href="theme.css">
+        <script type = "text/javascript" src="./yahtzee.js"></script>
         <title>
             Yahtzee Score Card
         </title>
@@ -14,62 +15,92 @@
         <th>Upper Section</th>
         <tr>
             <td>Ones</td> 
-            <td><input type="text"></input></td>
+            <td><input type="number" id="ones" onclick=update_upper() onkeyup=update_upper() step=1 min=0 max=5></input></td>
         </tr>
         <tr>
             <td>Twos</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="twos" onclick=update_upper() onkeyup=update_upper() step=2 min=0 max=10></input></td>
         </tr>
         <tr>
             <td>Threes</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="threes" onclick=update_upper() onkeyup=update_upper() step=3 min=0 max=15></input></td>
         </tr>
         <tr>
             <td>Fours</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="fours" onclick=update_upper() onkeyup=update_upper() step=4 min=0 max=20></input></td>
         </tr>
         <tr>
             <td>Fives</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="fives" onclick=update_upper() onkeyup=update_upper() step=5 min=0 max=25></input></td>
         </tr>
         <tr>
             <td>Sixes</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="sixes" onclick=update_upper() onkeyup=update_upper() step=6 min=0 max=30></input></td>
         </tr>
+        <tr>
+            <th>Upper Section Subtotal</th>
+            <td/ id="upper_subtotal">
+        </tr>
+        <tr>
+            <th>Upper Section Bonus</th>
+            <td/ id="upper_bonus">
+        </tr>
+        <tr>
+            <th>Upper Section Total</th>
+            <td/ id="upper_total">
+        </tr>
+
+
         <tr><td style="border: none;">&nbsp;</td><td style="border:none;"/></tr>
         <th>Lower Section</th>
         <tr>
             <td>Three of a Kind</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="toak" onclick=update_upper() onkeyup=update_lower() min=0 max=30></input></td>
         </tr>
         <tr>
             <td>Four of a Kind</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="foak" onclick=update_upper() onkeyup=update_lower() min=0 max=30></input></td>
         </tr>
         <tr>
             <td>Full House</td>
-            <td><input type="text"></input></td>
+            <td><input type="checkbox" id="full_house" onclick=update_lower()></input></td>
         </tr>
         <tr>
             <td>Small Straight</td>
-            <td><input type="text"></input></td>
+            <td><input type="checkbox" id="small_straight" onclick=update_lower()></input></td>
         </tr>
         <tr>
             <td>Large Straight</td>
-            <td><input type="text"></input></td>
+            <td><input type="checkbox" id="large_straight" onclick=update_lower()></input></td>
         </tr>
         <tr>
             <td>Yahtzee</td>
-            <td><input type="text"></input></td>
+            <td><input type="checkbox" id="yahtzee" onclick=update_lower()></input></td>
         </tr>
         <tr>
             <td>Chance</td>
-            <td><input type="text"></input></td>
+            <td><input type="number" id="chance" onclick=update_upper() onkeyup=update_lower() min=0 max=36></input></td>
         </tr>
         <tr>
             <td>Bonus Yahtzee</td>
-            <td><input type="text"></input></td>
+            <td>
+                <input type="checkbox" id="bonus_yahtzee1" onclick=update_lower()></input>
+                <input type="checkbox" id="bonus_yahtzee2" onclick=update_lower()></input>
+                <input type="checkbox" id="bonus_yahtzee3" onclick=update_lower()></input>
+                <input type="checkbox" id="bonus_yahtzee4" onclick=update_lower()></input>
+                <input type="checkbox" id="bonus_yahtzee5" onclick=update_lower()></input>
+                <input type="checkbox" id="bonus_yahtzee6" onclick=update_lower()></input>
+            </td>
+        </tr>
+        <tr>
+            <th>Lower Section Total</th>
+            <td/ id="lower_total">
+        </tr>
+        <tr/>
+        <tr>
+            <th>Total</th>
+            <td/ id="total">
+        </tr>
     </table>
 
 </html>
-
