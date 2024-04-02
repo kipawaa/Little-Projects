@@ -49,7 +49,7 @@ def simple_prime_decomp(num):
 
     return factors
 
-""" this version uses the some logic as the above, but is recursive """
+""" this version uses the same logic as the above, but is recursive """
 def recursive_prime_decomp(num, factors=[]):
     if num <= 1:
         return factors
