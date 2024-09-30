@@ -11,6 +11,7 @@ typedef struct Node {
 // defines linked list which uses the Node structure
 typedef struct LinkedList {
 	Node *head;
+        int len;
 } LinkedList;
 
 // allows printing a linked list
@@ -30,7 +31,7 @@ void printList(LinkedList *list) {
 
 
 // allows initialization of a linked list
-LinkedList* makeList() {
+LinkedList* getList() {
 	LinkedList* newList = NULL; 
 	newList = (LinkedList*)calloc(1, sizeof(LinkedList));
 	newList -> head = NULL;
@@ -177,7 +178,7 @@ void deleteList(LinkedList* list) {
 
 
 int main() {
-	LinkedList *newlist = makeList();
+	LinkedList *newlist = getList();
 	
 	// insert random numbers to ensure insertSorted works
 	insertSorted(9, newlist);

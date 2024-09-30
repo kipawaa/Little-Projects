@@ -8,7 +8,7 @@
  * index represents the current start of the queue.
  * When an item is dequeued, it is removed from the array at index index
  * index is then incremented, and the "start" of the queue is now the next element in the array
- * Deqing is done by removing the item at index length
+ * Dequeing is done by removing the item at index length
  * length is then decremented
  * modular arithmetic is used to ensure that both length and index remain valid indices
  * this achieves O(1) enqueue, O(1) dequeue
